@@ -71,7 +71,8 @@ module SassC::Rails
 
     initializer :setup_compression, group: :all do |app|
       if !Rails.env.development?
-        app.config.assets.css_compressor = :sass unless app.config.assets.has_key?(:css_compressor)
+        # Fallback to default to avoid "@import directive requires a url or quoted path" errors during compilation
+        # app.config.assets.css_compressor = :sass unless app.config.assets.has_key?(:css_compressor)
       else
         # Use expanded output instead of the sass default of :nested unless specified
         app.config.sass.style ||= :expanded
